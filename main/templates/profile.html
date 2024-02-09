@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+    .logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+
+</style><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Profile</title>
+<link href="{% static 'colors.css' %}" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet"/>
+
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="bg-white dark:border-gray-700 shadow-lg shadow-[#F9F9F9] mb-3">
+<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<a class="flex items-center space-x-3 rtl:space-x-reverse" href="#">
+<img alt="Darazz Mall Logo" class="h-8 logo1" src="{% static 'logo1.png' %}"/>
+<span class="self-center text-2xl font-semibold whitespace-nowrap"></span>
+</a>
+<button aria-controls="navbar-multi-level" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" data-collapse-toggle="navbar-multi-level" type="button">
+<span class="sr-only">Open main menu</span>
+<svg aria-hidden="true" class="w-5 h-5" fill="none" viewbox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 1h15M1 7h15M1 13h15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
+<ul class="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent">
+ {% if user.is_authenticated %}
+        <!-- Show the "Logout" button only when the user is authenticated -->
+         <a href="/logout/" class="bg-gradient-to-tr from-[#2000d1] to-[#373ff0] px-5 py-2 rounded-lg text-white hover:bg-gradient-to-bl">
+            Logout
+        </a>
+        {% endif %}
+</ul>
+</div>
+</div>
+</nav>
+<!-- Navbar end -->
+<!-- profile section start -->
+<section>
+<div class="grid sm:grid-cols-1 md:grid-cols-2 m-2">
+<div class="col-span-1 flex justify-end">
+
+
+<div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Amount
+                </th>
+                <th scope="col" class="px-6 py-3">
+                  Date
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Time
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    TRX
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for transaction in Transctions %}
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                   {{transaction.amount}} Rupees+/Tax
+                </th>
+                <td class="px-6 py-4">
+                    {{transaction.date}}
+                </td>
+                <td class="px-6 py-4">
+                    {{transaction.time}}
+                </td>
+                <td class="px-6 py-4">
+                    <a href="{{transaction.trx.url}}/" class="color-white">Click here to see TRX</a>
+                </td>
+            </tr>
+               {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</div>
+<div class="col-span-1 p-5">
+<form class="max-w-md" method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+<div class="grid md:grid-cols-2 md:gap-6">
+  <div class="flex justify-center items-center">
+    <label class="relative cursor-pointer bg-gray-200 rounded-lg overflow-hidden">
+        <input type="file" name="image1" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer" accept="image/*">
+        <img src="{{userData.image.url}}" alt="Default Image" class="object-cover w-full h-full">
+        <div class="absolute inset-0 flex justify-center items-center text-gray-500">
+            <span class="bg-white p-2 rounded-full">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            </span>
+        </div>
+    </label>
+</div>
+<strong>Rank Level : {{userData.rank_level}}</strong>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="floating_first_name" name="floating_first_name" placeholder="" required="" type="text" value="{{userData.first_name}}" readonly/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="floating_first_name" >First name</label>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="floating_last_name" name="floating_last_name" placeholder=" " value="{{userData.last_name}}" required="" type="text" readonly/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="floating_last_name">Last name</label>
+</div>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="floating_email" name="floating_email" placeholder=" " value="{{userData.email}}" required="" type="email" readonly/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="floating_email">Email address</label>
+</div>
+
+<div class="relative z-0 w-full mb-5 group">
+<input value="{{userData.mobile}}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="floating_phone" name="floating_phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder=" " required="" type="tel" readonly/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="floating_phone" >Phone number (123-456-7890)</label>
+</div>
+<Button class="bg-gradient-to-tr from-[#2000d1] to-[#373ff0] px-5 py-2 rounded-lg text-white hover:bg-gradient-to-bl" method="post">Save Information</Button>
+</form>
+</div>
+</div>
+</section>
+<!-- profile section end -->
+<!-- Footer -->
+<footer>
+<div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+<div class="sm:flex sm:items-center sm:justify-between">
+<a class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse" href="https://flowbite.com/">
+<img alt="Flowbite Logo" class="h-8" src="{% static 'logo1.png' %}"/>
+<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Darazz Mall</span>
+</a>
+<ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
+
+</ul>
+</div>
+<hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
+<span class="block text-sm text-gray-500 sm:text-center">© 2023 <a class="hover:underline" href="https://flowbite.com/">Flowbite™</a>. All Rights Reserved.</span>
+</div>
+</footer>
+<!-- Footer end -->
+<script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+      AOS.init();
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+</body>
+</html>
+

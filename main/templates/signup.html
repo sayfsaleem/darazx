@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+    .logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+
+</style><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<link rel="stylesheet" type="text/css" href="{% static 'colors.css' %}">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<link href="{% static 'sweetalert2.min.css' %}" rel="stylesheet"/>
+<!--Adding Bootstrap-->
+<!-- <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    /> -->
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="{% static 'sweetalert2.all.min.js' %}"></script>
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+<script src="https://cdn.tailwindcss.com"></script>
+<title>Signup</title>
+<!-- <link rel="stylesheet" href="stylesheet.css" /> -->
+</head>
+<body class="bg-[#2000d1]">
+<section>
+<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+<div class="w-full bg-white rounded-lg md:mt-0 sm:max-w-md xl:p-0 login-box" data-aos="zoom-in">
+<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+<a class="flex mb-6 text-2xl font-semibold text-gray-900 justify-center" href="#">
+<img alt="logo" style="width: 150px;height:150px" class="w-22 h-20 mr-2" src="{% static 'logo1.png' %}" />
+
+</a>
+<h1 class="text-xl font-bold leading-tight tracking-tight">
+   {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <h1>{{ message }}</h1>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+              Create Account
+            </h1>
+<!-- signup form -->
+<div class="max-w-md mx-auto">
+<div class="grid md:grid-cols-2 md:gap-6">
+<div class="relative z-0 w-full mb-5 group">
+  <form method="post">
+    {% csrf_token %}
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="firstName" name="firstName" placeholder=" " required="" type="text"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="firstName">First name</label>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="lastName" name="lastName" placeholder=" " required="" type="text"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="lastName">Last name</label>
+</div>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="txtEmail" name="email" placeholder=" " required="" type="email"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="email">Email address</label>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="phoneNumber" name="phoneNumber" placeholder=" " required="" type="tel"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="phoneNumber">+92 000 0000</label>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="txtPassword" name="password" placeholder=" " required="" type="password"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="password">Password</label>
+</div>
+<div class="relative z-0 w-full mb-5 group">
+<input class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" id="floating_repeat_password" name="password2" placeholder=" " required="" type="password"/>
+<label class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6" for="floating_repeat_password">Confirm password</label>
+</div>
+<button class="w-full text-white hover:text-[#2000d1] bg-[#2000d1] hover:bg-white border-2 border-[#2000d1] font-medium rounded-lg text-sm px-5 py-2.5 text-center" id="btnSignup" type="submit">
+                Register
+              </button>
+              </form>
+<p class="text-sm font-light text-gray-500 pt-4">
+                Already have an account?
+                <a class="font-medium text-primary-600 hover:underline" href="/login/">Sign in</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+      AOS.init();
+    </script>
+</body>
+</html>
+

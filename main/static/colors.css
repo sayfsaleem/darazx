@@ -1,0 +1,11 @@
+:root {
+    --orange: #245cf5;
+    --white: #ffffff;
+  }
+
+.logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+

@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+    .logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+
+</style><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Confirmation and Rating</title>
+<!-- Include Tailwind CSS -->
+<link href="{% static 'style.css' %}" rel="stylesheet"/>
+<link href="{% static 'colors.css' %}" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<!-- Include your custom styles if needed -->
+<style>
+      /* Add your custom styles here */
+    </style>
+</head>
+<body class="bg-[--orange] min-h-screen flex items-center justify-center">
+<div class="bg-neutral-100 p-8 rounded-xl shadow-xl shadow-orange-600 max-w-md w-full">
+<h1 class="text-2xl text-neutral-700 font-bold mb-4">
+        Your Payment Has Been Received
+      </h1>
+<p class="text-gray-700 mb-3">
+        Thank you for your payment! Your transaction is currently under review.
+      </p>
+
+<!-- Additional Content -->
+
+<!-- Submit Button -->
+
+</div>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+      AOS.init();
+    </script>
+</body>
+</html>
+

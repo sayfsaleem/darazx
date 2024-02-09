@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+    .logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+
+</style><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Payment Confirmation and Rating</title>
+<!-- Include Tailwind CSS -->
+<link href="{% static 'style.css' %}" rel="stylesheet" type="text/css"/>
+<link href="{% static 'colors.css' %}" rel="stylesheet" type="text/css"/>
+<link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"/>
+<script crossorigin="anonymous" src="https://kit.fontawesome.com/017223e88e.js"></script>
+<!-- Include your custom styles if needed -->
+<style>
+.stars i {
+    cursor: pointer;
+}
+
+.stars i.checked {
+    color: gold; /* or any other color you prefer for the shining effect */
+}
+</style>
+
+
+</head>
+<body class="bg-[--orange] min-h-screen flex items-center justify-center">
+<div class="bg-neutral-100 p-8 rounded-xl shadow-xl shadow-orange-600 max-w-md w-full">
+<h1 class="text-2xl text-neutral-700 font-bold mb-4">
+        Rate the Product
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+</h1>
+<div>
+  <img src="{{product.image.url}}" class="w-full h-auto">
+</div>
+<!-- Rating System -->
+<!-- Additional Content -->
+<!-- Submit Button -->
+<form method="post">
+    {% csrf_token %}
+ <div class="input_creds review">
+
+                </div>
+                <div class="label rating_label"><span>Rating (1 star being the lowest)</span></div>
+                 <div class="rating">
+                    <div>
+<input type="hidden" name="rating" id="stars" value="{{product.rating}}">
+<div class="stars" onclick="handleStarClick(event)" >
+    <i class="fa fa-star" data-value="1"></i>
+    <i class="fa fa-star" data-value="2"></i>
+    <i class="fa fa-star" data-value="3"></i>
+    <i class="fa fa-star" data-value="4"></i>
+    <i class="fa fa-star" data-value="5"></i>
+</div>
+<div id="ratingText">Rating: 0</div>
+
+
+<div class="flex flex-row items-center space-x-1">
+<Button type="submit" class="bg-gradient-to-r hover:bg-gradient-to-l from-[#2000d1] to-[#373ff0] text-white px-4 py-2 rounded" href="/dashboard/">
+          Submit Rating
+        </Button>
+</div></form>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const defaultRating = parseInt(document.getElementById('stars').value);
+    const stars = document.querySelectorAll('.stars i');
+
+    stars.forEach((star, index) => {
+        if (index < defaultRating) {
+            star.classList.add('checked');
+        }
+    });
+
+    document.getElementById('ratingText').textContent = `Rating: ${defaultRating}`;
+});
+
+function handleStarClick(event) {
+    const stars = document.querySelectorAll('.stars i');
+    const selectedStar = parseInt(event.target.dataset.value);
+
+    stars.forEach((star, index) => {
+        if (index < selectedStar) {
+            star.classList.add('checked');
+        } else {
+            star.classList.remove('checked');
+        }
+    });
+
+    event.target.classList.toggle('checked');
+    const siblings = Array.from(event.target.parentNode.children);
+    siblings.slice(0, selectedStar + 1).forEach(sibling => {
+        sibling.classList.add('checked');
+    });
+    siblings.slice(selectedStar).forEach(sibling => {
+        sibling.classList.remove('checked');
+    });
+
+    document.getElementById('stars').value = selectedStar;
+    document.getElementById('ratingText').textContent = `Rating: ${selectedStar}`;
+}
+</script>
+
+
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+     tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              clifford: "#da373d",
+            },
+          },
+        },
+      };
+    </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+      AOS.init();
+    </script>
+</body>
+</html>
+

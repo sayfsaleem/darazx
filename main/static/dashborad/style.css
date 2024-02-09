@@ -1,0 +1,8 @@
+.cards:hover h5{
+    color: white;
+}
+
+.cards:hover{
+    background-color: var(--orange);
+    transition: all 0.5s;
+}

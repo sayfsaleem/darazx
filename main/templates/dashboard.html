@@ -1,0 +1,212 @@
+
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+    .logo1 {
+  width: 140px !important; /* Example width */
+  height: auto !important; /* Example height */
+  /* Add other styles as needed */
+}
+
+</style><meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login</title>
+<link href="{% static 'colors.css' %}" type="text/css"  rel="stylesheet"/>
+<link href="{% static '/dashborad/style.css' %}" type="text/css" rel="stylesheet"/>
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="bg-white dark:border-gray-700 shadow-lg shadow-[#F9F9F9] mb-3">
+<div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+<a class="flex items-center space-x-3 rtl:space-x-reverse" href="#">
+<img alt="Darazz Mall Logo" class="h-8 logo1" src="{% static 'logo1.png' %}"/>
+<span class="self-center text-2xl font-semibold whitespace-nowrap"></span>
+</a>
+<button aria-controls="navbar-multi-level" aria-expanded="false" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" data-collapse-toggle="navbar-multi-level" type="button">
+<span class="sr-only">Open main menu</span>
+<svg aria-hidden="true" class="w-5 h-5" fill="none" viewbox="0 0 17 14" xmlns="http://www.w3.org/2000/svg">
+<path d="M1 1h15M1 7h15M1 13h15" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<div class="hidden w-full md:block md:w-auto" id="navbar-multi-level">
+ {% if user.is_authenticated %}
+        <!-- Show the "Logout" button only when the user is authenticated -->
+        <a href="/logout/" class="bg-gradient-to-tr from-[#2000d1] to-[#373ff0] px-5 py-2 rounded-lg text-white hover:bg-gradient-to-bl">
+            Logout
+        </a>
+        {% endif %}
+</div>
+</div>
+</nav>
+<!-- Navbar end -->
+<!-- Cards -->
+<style>
+    @keyframes ticker {
+        0% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .animate-ticker {
+        animation: ticker 30s linear infinite;
+    }
+</style>
+<style>
+    .marquee {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .marquee ul {
+        display: inline-block;
+        padding-left: 100%;
+        animation: marquee 10s linear infinite;
+    }
+
+    .marquee li {
+        display: inline-block;
+        padding-right: 1rem; /* Adjust spacing between items */
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0%);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+<div class="flex justify-center items-center">
+    <div class="w-72 bg-blue-500 p-6 rounded-lg text-white text-center overflow-hidden">
+        <h2 class="text-xl font-bold mb-4">Top Members</h2>
+        <div class="marquee">
+            <ul>
+                {% for member in top_users %}
+                    <li>Name: {{ member.first_name }} {{ member.last_name }} | Amount: {{ member.Balance }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="overflow-hidden">
+    <div class="inline-block whitespace-nowrap animate-ticker">
+        {% for line in lines %}
+            <h2 class="text-center text-2xl font-bold tracking-tight text-gray-900 inline-block" style="background-color: rgb(0 70 255);color:white;">
+                {{ line.text }}
+            </h2><br><br><br>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<div class="flex justify-center items-center">
+
+<div class="my-10 grid sm:grid-cols-1 md:grid-cols-2 gap-4">
+<div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-1">
+<iframe class="mx-auto" src="https://lottie.host/embed/5f909ba3-6cf8-45d2-98fd-8e6105202b6c/nbsnBFahx6.json"></iframe>
+<div class="p-5">
+<a href="/profile/">
+<h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            My Profile</h5>
+</a>
+</div>
+</div>
+<div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-1">
+<iframe class="mx-auto" src="https://lottie.host/embed/0f1df879-de1e-4dc9-b9e2-0bc4252998a2/prjhYdsKsg.json"></iframe>
+<div class="p-5">
+<a href="/work/">
+<h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            My Work</h5>
+</a>
+</div>
+</div>
+<div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-1">
+<iframe class="mx-auto" src="https://lottie.host/embed/4912b41c-6f00-4217-b603-44570d0f3260/qviZHF8E0t.json"></iframe>
+<div class="p-5">
+<a href="/wallet/">
+<h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            Payments Wallet</h5>
+</a>
+</div>
+</div>
+<div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-1">
+<iframe class="mx-auto" src="https://lottie.host/embed/90bcdbd9-2dc5-41d7-a4a7-cc31ba21427b/Akb38c2oH6.json"></iframe>
+<div class="p-5">
+<a href="/team/">
+<h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            Your Team Referal Link</h5>
+</a>
+</div>
+</div>
+  <div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-2 sm:col-span-1">
+
+                <iframe class="mx-auto" src="https://lottie.host/embed/4f8e2136-b3b2-45a3-897d-78bb234826b2/DT3uRqmFJp.json"></iframe>
+
+                <div class="p-5">
+                    <a href="/ranking/">
+                        <h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            Daraz Reward</h5>
+                    </a>
+                </div>
+            </div>
+              <div class="w-full cards bg-white border border-gray-200 rounded-lg shadow md:col-span-2 sm:col-span-1">
+
+                <iframe class="mx-auto" src="https://lottie.host/embed/821eb48c-8609-4b62-83bd-d64859ed9294/apyK4hfv1E.json"></iframe>
+
+                <div class="p-5">
+                    <a href="https://chat.whatsapp.com/EyzD4pBd0UK0Yq9dcb0W4r">
+                        <h5 class="mb-2 text-center text-2xl font-bold tracking-tight text-gray-900">
+                            Whatsapp Group</h5>
+                    </a>
+                </div>
+            </div>
+</div>
+</div>
+<!-- Cards end -->
+<!-- Footer -->
+<footer>
+<div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+<div class="sm:flex sm:items-center sm:justify-between">
+<a class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse" href="https://flowbite.com/">
+<img alt="Flowbite Logo" class="h-8" src="{% static 'logo1.png' %}"/>
+<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Darazz Mall</span>
+</a>
+<ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0">
+
+</ul>
+</div>
+<hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
+<span class="block text-sm text-gray-500 sm:text-center">© 2023 <a class="hover:underline" href="https://flowbite.com/">Flowbite™</a>. All Rights Reserved.</span>
+</div>
+</footer>
+<!-- Footer end -->
+<script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                clifford: '#da373d',
+              }
+            }
+          }
+        }
+      </script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+        AOS.init();
+      </script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script> -->
+</body>
+</html>
+
